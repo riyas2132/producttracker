@@ -3,684 +3,574 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Product Listing</title>
+    <title>Product Tracking System</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
     <style>
-        
-		:root {
-    --primary-color: #1976D2;
-    --secondary-color: #E3F2FD;
-    --accent-color: #FFFFFF;
-}
-
-		body {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-}
-        .custom-header {
-    background-color: var(--primary-color);
-}
-
-        .custom-header .navbar-brand {
-    color: var(--accent-color);
-}
-        .product-card {
-            height: 100%;
-            transition: transform 0.3s ease;
-            background-color: #FFFFFF;
+        body {
+            background-color: #eef2f7; /* Softer background color */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+            color: #333; /* Darker text for readability */
         }
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-        .product-image {
-            height: 200px;
-            object-fit: cover;
-        }
-        
-		#cartButton {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    background-color: #4a4a4a;
-    border-color: #4a4a4a;
-    color: #ffffff;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-    padding: 10px 20px;
-    font-size: 1.1em;
-}
 
-#cartButton:hover {
-    background-color: #333333;
-    border-color: #333333;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-		
-        .quantity-control {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-        .quantity-input {
-            width: 40px;
+        .tracking-container {
+            max-width: 900px; /* Slightly wider for better content fit */
+            margin: 60px auto; /* More vertical spacing */
+            padding: 30px; /* Increased padding for breathing room */
+            background-color: #ffffff;
+            border-radius: 15px; /* Smoother corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            transition: transform 0.2s ease; /* Slight hover effect */
+        }
+
+        .tracking-container:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+        }
+
+        .tracking-header {
             text-align: center;
-            border: none;
-            background-color: transparent;
+            margin-bottom: 40px;
         }
-        .footer {
-    background-color: var(--primary-color);
-    color: var(--accent-color);
-}
-        .product-heading {
-            font-size: 1.5em;
-            text-align: left;
-            margin-bottom: 15px;
-            color: #dbd08c;
-        }
-            .btn-outline-secondary {
-        padding: 0.375rem 0.75rem;
-    }
-	.quantity-display {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 60px;
-        height: 100%;
-    }
-        .btn-outline-secondary:hover {
-    color: var(--accent-color);
-    background-color: var(--primary-color);
-}
-       .footer .section {
-            flex: 1;
-            padding: 20px;
-            min-width: 200px;
-        }
-        .footer .section h3 {
-            margin-top: 0;
-        }
-        .footer .social-icons {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: left;
-        }
-        .footer .social-icons li {
-            margin: 0 10px;
-        }
-        .footer .social-icons a {
-            color: white;
-            text-decoration: none;
-            font-size: 24px;
-        }
-  #loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
 
-.spinner-border {
-    width: 3rem;
-    height: 3rem;
-}   
-.out-of-stock {
-        opacity: 0.7;
-    }
-    
-    .out-of-stock img {
-        filter: grayscale(100%);
-    }
-    
-    .out-of-stock .card-body {
-        position: relative;
-    }
-    
-    .text-danger.fw-bold {
-        font-size: 1.2em;
-        margin-top: auto;
-    }    
+        .tracking-header h2 {
+            font-size: 2rem; /* Larger heading */
+            font-weight: 600;
+            color: #2c3e50; /* Professional dark blue */
+        }
+
+        .tracking-header p {
+            font-size: 1.1rem;
+            color: #7f8c8d; /* Muted gray for subtitle */
+        }
+
+        .input-group {
+            max-width: 500px; /* Constrain input width */
+            margin: 0 auto; /* Center the input group */
+        }
+
+        .form-control {
+            border-radius: 8px 0 0 8px; /* Rounded left corners */
+            border: 1px solid #dcdcdc; /* Light border */
+            padding: 12px; /* More padding for comfort */
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            border-radius: 0 8px 8px 0; /* Rounded right corners */
+            padding: 12px 25px; /* Larger button */
+            background-color: #2980b9; /* Modern blue */
+            border: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #3498db; /* Lighter blue on hover */
+        }
+
+        .hide-section {
+            display: none;
+        }
+
+        .loader {
+            border: 6px solid #ecf0f1; /* Lighter base */
+            border-top: 6px solid #e74c3c; /* Vibrant red spinner */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1.5s linear infinite;
+            margin: 30px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert-danger {
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1rem;
+            background-color: #fceaea; /* Softer red */
+            color: #c0392b; /* Darker red text */
+            border: none;
+        }
+
+        .card {
+            border: none; /* Remove default border */
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.03); /* Subtle card shadow */
+        }
+
+        .nav-tabs {
+            border-bottom: 2px solid #ecf0f1; /* Lighter border */
+        }
+
+        .nav-tabs .nav-link {
+            padding: 12px 20px;
+            font-weight: 500;
+            color: #7f8c8d; /* Gray for inactive tabs */
+            border: none;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #2980b9; /* Active tab color */
+            background-color: #ffffff;
+            border-bottom: 3px solid #2980b9; /* Highlight active tab */
+        }
+
+        .nav-tabs .nav-link:hover {
+            color: #3498db; /* Hover effect */
+        }
+
+        .tab-content {
+            padding: 25px;
+            background-color: #fafafa; /* Light gray background */
+            border-radius: 0 0 12px 12px;
+        }
+
+        h6 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            font-size: 1rem;
+            line-height: 1.6; /* Better readability */
+        }
+
+        strong {
+            font-weight: 600;
+            color: #34495e; /* Slightly darker for emphasis */
+        }
+
+        /* Customer Details Section */
+        .customer-details {
+            padding: 15px;
+            background-color: #e8f4f8; /* Light blue */
+            border-left: 4px solid #3498db; /* Blue accent */
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .customer-details h6 {
+            color: #2980b9; /* Matching blue */
+        }
+
+        .customer-details hr {
+            background: #3498db; /* Blue separator */
+        }
+
+        .customer-details:hover {
+            background-color: #d6eef8; /* Lighter on hover */
+        }
+
+        /* Product Details Section */
+        .item-details {
+            padding: 15px;
+            background-color: #fef9e7; /* Light yellow */
+            border-left: 4px solid #f1c40f; /* Yellow accent */
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .item-details h6 {
+            color: #f1c40f; /* Matching yellow */
+        }
+
+        .item-details hr {
+            background: #f1c40f; /* Yellow separator */
+        }
+
+        .item-details:hover {
+            background-color: #fcf3cf; /* Lighter on hover */
+        }
+
+        /* Warranty Details Section */
+        .warranty-details {
+            padding: 15px;
+            background-color: #e8f5e9; /* Light green */
+            border-left: 4px solid #2ecc71; /* Green accent */
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .warranty-details h6 {
+            color: #2ecc71; /* Matching green */
+        }
+
+        .warranty-details hr {
+            background: #2ecc71; /* Green separator */
+        }
+
+        .warranty-details:hover {
+            background-color: #d4edda; /* Lighter on hover */
+        }
+
+        /* Service Tracking Section */
+        .service-tracking {
+            padding: 15px;
+            background-color: #f3e5f5; /* Light purple */
+            border-left: 4px solid #9b59b6; /* Purple accent */
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .service-tracking h6 {
+            color: #9b59b6; /* Matching purple */
+        }
+
+        .service-tracking hr {
+            background: #9b59b6; /* Purple separator */
+        }
+
+        .service-tracking:hover {
+            background-color: #ebdef0; /* Lighter on hover */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .tracking-container {
+                margin: 30px 15px;
+                padding: 20px;
+            }
+
+            .tracking-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .input-group {
+                max-width: 100%;
+            }
+
+            .tab-content {
+                padding: 15px;
+            }
+
+            .customer-details, .item-details, .warranty-details, .service-tracking {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
-	<div id="loading-overlay">
-    <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-	</div>
-    <!-- Updated Header -->
-    <header class="custom-header">
-    <nav class="navbar">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand" href="#">Shop Name</a>
-            <div class="header-buttons d-flex align-items-center">
-				<a href="tel:" id="callButton" class="btn btn-primary me-3" title="Call us">
-				<i class="bi bi-telephone-fill fs-4"></i>
-				</a>
-				<a href="https://wa.me/" id="whatsappButton" class="btn btn-success me-3" target="_blank" title="Chat on WhatsApp">
-				<i class="bi bi-whatsapp fs-4"></i>
-				</a>
-				<a href="https://www.google.com/maps/dir/?api=1&destination=Facts+Computer+Software+House+LLC&origin=Facts+Computer+Software+House+LLC" id="glocation" class="btn btn-secondary" target="_blank" title="Location">
-				<i class="bi bi-geo-alt-fill fs-4"></i>
-				</a>
-			</div>
-
+    <div class="container tracking-container">
+        <div class="tracking-header">
+            <h2>Product Tracking System</h2>
+            <p class="text-muted">Enter your tracking number to get product details</p>
         </div>
-    </nav>
-</header>
-
-    <div class="container py-4">
-        <h2 class="product-heading">Our Products</h2>
-        <div id="productCategories" class="mb-4">
-            <!-- Categories will be inserted here -->
-        </div>
-        <div class="input-group mb-4">
-            <input type="text" class="form-control" placeholder="Search products..." id="searchInput">
-            <button class="btn btn-outline-secondary" type="button" onclick="filterProducts()">Search</button>
-        </div>
-        <div id="productGrid" class="row row-cols-2 row-cols-md-2 row-cols-lg-4 g-4">
-            <!-- Products will be inserted here -->
-        </div>
-    </div>
-    <button id="cartButton" class="btn btn-primary btn-lg" style="display: none;">Proceed to Cart</button>
-
-    <!-- Cart Modal -->
-    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        
+        <div class="search-section">
+            <div class="input-group mb-3">
+                <input type="text" id="trackingInput" class="form-control" placeholder="Enter Tracking Number" aria-label="Tracking Number">
+                <button class="btn btn-primary" type="button" id="trackButton">Track</button>
             </div>
-            <div class="modal-body" id="cartModalBody">
-                <!-- Cart contents will be inserted here -->
-            </div>
-			<div class="form-group mt-3">
-                <label for="addressInput" class="form-label">Delivery Address (Optional):</label>
-                <textarea class="form-control" id="addressInput" rows="3" placeholder="Enter your delivery address (optional)"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="clearCartButton" onclick="clearCart()">Clear Cart</button>
-                <button type="button" class="btn btn-primary" id="proceedToWhatsApp">Proceed to WhatsApp</button>
+        </div>
+        
+        <div id="loader" class="loader hide-section"></div>
+        <div id="errorMessage" class="alert alert-danger hide-section"></div>
+        
+        <div id="trackingResult" class="hide-section">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="trackingTabs" role="tablist"></ul>
+                    <div class="tab-content" id="trackingTabContent"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>About Us</h5>
-                    <p>Shop Name is dedicated to providing high-quality products and excellent customer service.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Contact</h5>
-                    <p>Email: info@yourshop.com<br>Phone: +1 234 567 8900</p>
-                </div>
-				<div class="col-md-4">
-                   <h5>Follow Us</h5> 
-                <ul class="social-icons">
-                    <li><a id="facebookLink"  href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a id="twitterLink"  href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                    <li><a id="instagramLink"  href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                    <li><a id="linkedinLink"  href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                </ul> 
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>&copy; 2024 Shop Name. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS and Popper.js -->
+    <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Google Sheets API -->
     <script src="https://apis.google.com/js/api.js"></script>
+    <!-- Custom JavaScript -->
     <script>
-	function debounce(func, wait) {
-    let timeout;
-    return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-}
-		showLoading();
-		function showLoading() {
-    document.getElementById('loading-overlay').style.display = 'flex';
-}
-function hideLoading() {
-    document.getElementById('loading-overlay').style.display = 'none';
-}
-        // Replace with your Google Sheets API key
         const API_KEY = 'AIzaSyByyiuwuJBysKl2xtvl6wCw6Gz9shyDzXs';
-        // Replace with your Google Sheet ID
-        const SHEET_ID = '1JziliJ6oVkgMlm-Aa2jMc2s4LBSgHpZCoEaXTd9u9s0';
-        // Replace with your sheet name and extend the range to include columns R and S
-        const SHEET_NAME = 'Aquarium!A:S';
+        const SHEET_ID = '1MFudhCazp390WhESirt2JmV2acZ0hiluPRa7b578GtA';
+        const SHEET_RANGE = 'Tracker!A:AL';
 
-        let cart = {};
-        let products = [];
-        let categories = [];
-        let shopName = 'Shop Name'; // Default value
-        let shopEmail = 'info@yourshop.com'; // Default value
-        let Phone = '000000'; // Default value
-		let Facebook = 'https://www.facebook.com'; // Default value
-		let Twitter = 'https://www.twitter.com'; // Default value
-		let Instagram = 'https://www.instagram.com'; // Default value
-		let Linkedin = 'https://www.linkedin.com'; // Default value
-		let Location = ''; // Default value
+        document.addEventListener('DOMContentLoaded', function() {
+            const trackingInput = document.getElementById('trackingInput');
+            const trackButton = document.getElementById('trackButton');
+            const loader = document.getElementById('loader');
+            const errorMessage = document.getElementById('errorMessage');
+            const trackingResult = document.getElementById('trackingResult');
+            const trackingTabs = document.getElementById('trackingTabs');
+            const trackingTabContent = document.getElementById('trackingTabContent');
+            
+            gapi.load('client', initClient);
 
-        function initClient() {
-    showLoading(); // Show loading animation
-    gapi.client.init({
-        'apiKey': API_KEY,
-        'discoveryDocs': ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
-    }).then(function () {
-        loadSheetsData();
-    }, function (error) {
-        console.log('Error initializing GAPI client: ' + error);
-        hideLoading(); // Hide loading animation in case of error
-    });
-}
-
-
-
-function loadSheetsData() {
-    gapi.client.sheets.spreadsheets.values.get({
-        spreadsheetId: SHEET_ID,
-        range: SHEET_NAME
-    }).then(function (response) {
-        const data = response.result.values;
-        const productGrid = document.getElementById('productGrid');
-
-        // Initialize variables for color customization
-        let primaryColor = '#1976D2'; // Default primary color
-        let secondaryColor = '#E3F2FD'; // Default secondary color
-        let accentColor = '#FFFFFF'; // Default accent color
-
-        // Skip the first row (header) and start from the second row
-        for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-            if (row[17] === 'ShopName') {
-                shopName = row[18];
-                updateShopName();
-            }
-            if (row[17] === 'Email') {
-                shopEmail = row[18];
-            }
-            if (row[17] === 'Phone') {
-                Phone = row[18];
-            }
-            if (row[17] === 'Location') {
-                Location = row[18];
-            }
-            if (row[17] === 'Facebook') {
-                Facebook = row[18];
-            }
-            if (row[17] === 'Twitter') {
-                Twitter = row[18];
-            }
-            if (row[17] === 'Instagram') {
-                Instagram = row[18];
-            }
-            if (row[17] === 'Linkedin') {
-                Linkedin = row[18];
-            }
-            if (row[17] === 'Colour') {
-                [primaryColor, secondaryColor, accentColor] = row[18].split(',');
-                updateColors(primaryColor, secondaryColor, accentColor);
-            }
-            updateShopEmailPhone();
-            updateSocialMedia(Facebook, Twitter, Instagram, Linkedin);
-        }
-
-        // Process product data starting from the second row
-        for (let i = 1; i < data.length; i++) {
-            const row = data[i];
-            if (row[0] && row[1] && row[2]) {
-                products.push({ 
-                    code: row[0], 
-                    price: parseFloat(row[1]), 
-                    oldPrice: parseFloat(row[4]), 
-                    image: row[2], 
-                    category: row[3],
-					kg: parseFloat(row[5]) || 1, // New KG value, default to 1 if not provided		
-					stock: parseInt(row[6]) || 0					
+            function initClient() {
+                gapi.client.init({
+                    'apiKey': API_KEY,
+                    'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+                }).then(() => {
+                    console.log('Google Sheets API initialized');
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const trackingNumber = urlParams.get('tracking');
+                    if (trackingNumber) {
+                        trackingInput.value = trackingNumber;
+                        trackPackage();
+                    }
+                }, (error) => {
+                    console.error('Error initializing Google Sheets API:', error);
+                    showError('Failed to initialize API. Please try again later.');
                 });
-                if (!categories.includes(row[3])) {
-                    categories.push(row[3]);
-                }
-                const productCard = createProductCard(products.length - 1);
-                productGrid.appendChild(productCard);
             }
-        }
 
-        renderCategories();
-        hideLoading(); // Hide loading animation when data is loaded and rendered
-    }, function (response) {
-        console.error('Error: ' + response.result.error.message);
-        hideLoading(); // Hide loading animation in case of error
-    });
-}
+            trackButton.addEventListener('click', trackPackage);
+            trackingInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    trackPackage();
+                }
+            });
 
+            async function trackPackage() {
+                const trackingNumber = trackingInput.value.trim();
+                console.log('Tracking Number Entered:', trackingNumber);
 
-function updateColors(primaryColor, secondaryColor, accentColor) {
-    document.documentElement.style.setProperty('--primary-color', primaryColor);
-    document.documentElement.style.setProperty('--secondary-color', secondaryColor);
-    document.documentElement.style.setProperty('--accent-color', accentColor);
+                if (!trackingNumber) {
+                    showError('Please enter a tracking number');
+                    return;
+                }
 
-    // Update inline styles if necessary
-    document.querySelector('.custom-header').style.backgroundColor = primaryColor;
-    document.querySelector('.navbar-brand').style.color = accentColor;
-    document.querySelector('body').style.backgroundColor = secondaryColor;
-    document.querySelector('body').style.color = primaryColor;
-    document.querySelectorAll('.product-heading, .btn-outline-secondary').forEach(element => {
-        element.style.color = primaryColor;
-        element.style.borderColor = primaryColor;
-    });
-    document.querySelectorAll('.btn-outline-secondary:hover').forEach(element => {
-        element.style.color = accentColor;
-        element.style.backgroundColor = primaryColor;
-    });
-    document.querySelector('.footer').style.backgroundColor = primaryColor;
-    document.querySelector('.footer').style.color = accentColor;
-}
+                console.log('Showing loader');
+                loader.classList.remove('hide-section');
+                errorMessage.classList.add('hide-section');
+                trackingResult.classList.add('hide-section');
+                trackingTabs.innerHTML = '';
+                trackingTabContent.innerHTML = '';
+                
+                try {
+                    const response = await gapi.client.sheets.spreadsheets.values.get({
+                        spreadsheetId: SHEET_ID,
+                        range: SHEET_RANGE,
+                    });
 
+                    console.log('API Response:', response.result);
 
-        
-		// Update the createProductCard function to display KG information
-function createProductCard(index) {
-    const product = products[index];
-    const isOutOfStock = product.stock === 0;
-    const productCard = document.createElement('div');
-    productCard.className = 'col';
-    productCard.innerHTML = 
-        `<div class="card h-100 product-card ${isOutOfStock ? 'out-of-stock' : ''}">
-            <img src="${product.image}" class="card-img-top product-image" alt="${product.code}">
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title">${product.code}</h5>
-                <p class="card-text">
-                    ${product.oldPrice > product.price ? 
-                        `<span style="color: red;" class="text-decoration-line-through">AED ${product.oldPrice.toFixed(2)}</span><br>` : 
-                        ''}
-                    <span class="text-primary fw-bold">
-                        AED ${product.price.toFixed(2)}
-                        ${product.kg && product.kg !== 1 ? `/Kg` : ''}
-                    </span>
-                </p>
-                ${isOutOfStock ? 
-                    '<p class="text-danger fw-bold">Out of Stock</p>' :
-                    `<div class="mt-auto">
-                        <div class="d-flex align-items-center">
-                            <button class="btn btn-outline-secondary" type="button" onclick="changeQuantity(${index}, -1)">
-                                <i class="bi bi-dash"></i>
-                            </button>
-                            <div class="mx-2 text-center" style="min-width: 60px;">
-                                <span id="quantity-${index}">${cart[index] || 0}</span>
+                    const data = response.result.values;
+                    if (!data || data.length <= 1) {
+                        showError('No data found in the sheet.');
+                        return;
+                    }
+
+                    const matchingRows = data.slice(1).filter(row => row[0] === trackingNumber);
+                    console.log('Matching Rows:', matchingRows);
+
+                    if (!matchingRows || matchingRows.length === 0) {
+                        showError('Tracking number not found. Please check and try again.');
+                        return;
+                    }
+
+                    displayTrackingResult(trackingNumber, matchingRows);
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    showError(`An error occurred: ${error.message || 'Unknown error'}`);
+                } finally {
+                    console.log('Hiding loader');
+                    loader.classList.add('hide-section');
+                }
+            }
+
+            function formatDate(dateStr) {
+                if (!dateStr) return '';
+                const date = new Date(dateStr);
+                if (isNaN(date.getTime())) return ''; // Invalid date
+                const day = String(date.getDate()).padStart(2, '0');
+                const monthNames = [
+                    'January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                ];
+                const month = monthNames[date.getMonth()];
+                const year = date.getFullYear();
+                return `${day} ${month} ${year}`; // DD Month YYYY
+            }
+
+            function calculateEndDate(startDate, durationMonths) {
+                if (!startDate || !durationMonths) return '';
+                const date = new Date(startDate);
+                const months = parseInt(durationMonths, 10);
+                if (isNaN(months) || isNaN(date.getTime())) return '';
+                date.setMonth(date.getMonth() + months);
+                return date; // Return Date object for consistent formatting
+            }
+
+            function displayTrackingResult(trackingNumber, rows) {
+                console.log('Displaying results for', rows.length, 'rows');
+                rows.forEach((row, index) => {
+                    const tabId = `tab-${trackingNumber}-${index}`;
+                    const isActive = index === 0 ? 'active' : '';
+                    const itemName = row[5] || `Item ${index + 1}`; // Tab name from product description
+
+                    // Create Tab Navigation Item
+                    const tabItem = document.createElement('li');
+                    tabItem.classList.add('nav-item');
+                    tabItem.setAttribute('role', 'presentation');
+                    tabItem.innerHTML = `
+                        <button class="nav-link ${isActive}" id="${tabId}-tab" data-bs-toggle="tab" 
+                            data-bs-target="#${tabId}" type="button" role="tab" 
+                            aria-controls="${tabId}" aria-selected="${index === 0}">
+                            ${itemName}
+                        </button>
+                    `;
+                    trackingTabs.appendChild(tabItem);
+
+                    // Safely handle missing data with blank defaults
+                    const trackingInfo = {
+                        customerDetails: {
+                            name: row[1] || '',
+                            email: row[2] || '',
+                            phone: row[3] || '',
+                            address: row[4] || '',
+                        },
+                        itemDetails: {
+                            description: row[5] || '',
+                            detailDescription: row[6] || '',
+                            additionalInfo: row[7] || '',
+                            notes: row[8] || '',
+                        },
+                        warrantyDetails: {
+                            date: row[9] || '',        // Column J (Start Date)
+                            duration: row[10] || '',   // Column K
+                            covered: row[11] || '',    // Column L
+                            exclusions: row[12] || ''  // Column M
+                        },
+                        // New service tracking details
+                        serviceDetails: [
+                            { service: row[13] || '', date: row[14] || '', status: row[15] || '' }, // Service1, Date1, Status1 (Columns N, O, P)
+                            { service: row[16] || '', date: row[17] || '', status: row[18] || '' }, // Service2, Date2, Status2 (Columns Q, R, S)
+                            { service: row[19] || '', date: row[20] || '', status: row[21] || '' }, // Service3, Date3, Status3 (Columns T, U, V)
+                            { service: row[22] || '', date: row[23] || '', status: row[24] || '' }, // Service4, Date4, Status4 (Columns W, X, Y)
+                            { service: row[25] || '', date: row[26] || '', status: row[27] || '' }  // Service5, Date5, Status5 (Columns Z, AA, AB)
+                        ]
+                    };
+
+                    // Format Start Date
+                    const startDateFormatted = formatDate(trackingInfo.warrantyDetails.date);
+
+                    // Calculate and Format End Date
+                    const endDateObj = calculateEndDate(trackingInfo.warrantyDetails.date, trackingInfo.warrantyDetails.duration);
+                    const endDateFormatted = formatDate(endDateObj);
+
+                    // Format Service Dates
+                    const formattedServiceDetails = trackingInfo.serviceDetails.map(service => ({
+                        service: service.service,
+                        date: formatDate(service.date), // Use the same formatDate function for consistency
+                        status: service.status
+                    }));
+
+                    // Create Tab Content
+                    const tabPane = document.createElement('div');
+                    const classes = ['tab-pane', 'fade'];
+                    if (isActive) {
+                        classes.push('show', 'active');
+                    }
+                    tabPane.classList.add(...classes.filter(cls => cls));
+                    tabPane.id = tabId;
+                    tabPane.setAttribute('role', 'tabpanel');
+                    tabPane.setAttribute('aria-labelledby', `${tabId}-tab`);
+
+                    // Generate HTML for Service Tracking Section
+                    let serviceTrackingHTML = `
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="service-tracking">
+                                    <h6>Service Tracking</h6>
+                                    <hr>
+                    `;
+                    
+                    // Check if there are any services to display
+                    const hasServices = formattedServiceDetails.some(service => service.service);
+                    if (hasServices) {
+                        serviceTrackingHTML += '<ul>';
+                        formattedServiceDetails.forEach((service, idx) => {
+                            if (service.service) { // Only display if the service name exists
+                                serviceTrackingHTML += `
+                                    <li>
+                                        <strong>Service ${idx + 1}:</strong> ${service.service}<br>
+                                        <strong>Date:</strong> ${service.date || 'Not available'}<br>
+                                        <strong>Status:</strong> ${service.status || 'Not available'}
+                                    </li>
+                                    <br>
+                                `;
+                            }
+                        });
+                        serviceTrackingHTML += '</ul>';
+                    } else {
+                        serviceTrackingHTML += '<p>No service history available.</p>';
+                    }
+
+                    serviceTrackingHTML += `
+                                </div>
                             </div>
-                            <button class="btn btn-outline-secondary" type="button" onclick="changeQuantity(${index}, 1)">
-                                <i class="bi bi-plus"></i>
-                            </button>
                         </div>
-                    </div>`
-                }
-            </div>
-        </div>`;
-    return productCard;
-}
+                    `;
 
-        function renderCategories() {
-    const categoryContainer = document.getElementById('productCategories');
-    categoryContainer.innerHTML = 
-        `<button class="btn btn-primary m-1" onclick="setCategoryAndFilter('All')">All</button>
-        ${categories.map(category => 
-            `<button class="btn btn-outline-secondary m-1" onclick="setCategoryAndFilter('${category}')">${category}</button>`
-        ).join('')}`;
-}
+                    // Combine all sections
+                    tabPane.innerHTML = `
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="customer-details">
+                                    <h6>Customer Details</h6>
+                                    <hr>
+                                    <p><strong>Name:</strong> ${trackingInfo.customerDetails.name}</p>
+                                    <p><strong>Email:</strong> ${trackingInfo.customerDetails.email}</p>
+                                    <p><strong>Phone:</strong> ${trackingInfo.customerDetails.phone}</p>
+                                    <p><strong>Address:</strong> ${trackingInfo.customerDetails.address}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="item-details">
+                                    <h6>Product Details</h6>
+                                    <hr>
+                                    <p><strong>Product:</strong> ${trackingInfo.itemDetails.description}</p>
+                                    <p><strong>Description:</strong> ${trackingInfo.itemDetails.detailDescription}</p>
+                                    <p><strong>Additional Info:</strong> ${trackingInfo.itemDetails.additionalInfo}</p>
+                                    <p><strong>Notes:</strong> ${trackingInfo.itemDetails.notes}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="warranty-details">
+                                    <h6>Warranty Details</h6>
+                                    <hr>
+                                    <p><strong>Start Date:</strong> ${startDateFormatted}</p>
+                                    <p><strong>Duration:</strong> ${trackingInfo.warrantyDetails.duration} months</p>
+                                    <p><strong>End Date:</strong> ${endDateFormatted}</p>
+                                    <p><strong>What’s Covered:</strong> ${trackingInfo.warrantyDetails.covered}</p>
+                                    <p><strong>Exclusions:</strong> ${trackingInfo.warrantyDetails.exclusions}</p>
+                                </div>
+                            </div>
+                        </div>
+                        ${serviceTrackingHTML} <!-- Add the new Service Tracking section -->
+                    `;
+                    trackingTabContent.appendChild(tabPane);
+                });
 
-        function filterProducts() {
-    const searchInput = document.getElementById('searchInput').value.toLowerCase();
-    const currentCategory = document.querySelector('#productCategories .btn-primary').textContent;
-    const productGrid = document.getElementById('productGrid');
-    productGrid.innerHTML = '';
-
-    products.forEach((product, index) => {
-        const matchesCategory = currentCategory === 'All' || product.category === currentCategory;
-        const matchesSearch = product.code.toLowerCase().includes(searchInput);
-
-        if (matchesCategory && matchesSearch) {
-            const productCard = createProductCard(index);
-            productGrid.appendChild(productCard);
-        }
-    });
-}
-function setCategoryAndFilter(category) {
-    const buttons = document.querySelectorAll('#productCategories .btn');
-    buttons.forEach(btn => {
-        btn.classList.remove('btn-primary');
-        btn.classList.add('btn-outline-secondary');
-    });
-    event.target.classList.remove('btn-outline-secondary');
-    event.target.classList.add('btn-primary');
-    filterProducts();
-}
-        function updateShopName() {
-            // Update shop name in navbar
-            document.querySelector('.navbar-brand').textContent = shopName;
-
-            // Update shop name in footer
-            document.querySelector('.footer h5').textContent = 'About ' + shopName;
-            document.querySelector('.footer p').textContent = shopName + ' is dedicated to providing high-quality products and excellent customer service.';
-            document.querySelector('.footer .text-center p').textContent = '© 2024 ' + shopName + '. All rights reserved.';
-        }
-
-        function updateShopEmailPhone() {
-            // Update shop email in footer
-            document.querySelector('.footer .col-md-4:nth-child(2) p').innerHTML = `Email: ${shopEmail}<br>Phone: ${Phone}`;
-            document.getElementById('callButton').href = `tel:+${Phone}`;
-            document.getElementById('whatsappButton').href = `https://wa.me/${Phone}`;
-			document.getElementById('glocation').href = `${Location}`;
-        }
-        function updateSocialMedia(Facebook,Twitter,Instagram,Linkedin) {
-			document.getElementById('facebookLink').href = Facebook; 
-			document.getElementById('twitterLink').href = Twitter; 
-			document.getElementById('instagramLink').href = Instagram; 
-			document.getElementById('linkedinLink').href = Linkedin; 
-			 
-			}
-
-function changeQuantity(index, change) {
-    const product = products[index];
-    
-    // Check if product is out of stock
-    if (product.stock === 0) {
-        return; // Do nothing if out of stock
-    }
-    
-    const kgIncrement = product.kg;
-    const quantitySpan = document.getElementById(`quantity-${index}`);
-    const modalQuantitySpan = document.getElementById(`modal-quantity-${index}`);
-    
-    let currentQuantity = cart[index] || 0;
-    let newQuantity = currentQuantity + (change * kgIncrement);
-    
-    // Ensure new quantity doesn't exceed available stock
-    newQuantity = Math.min(Math.max(0, newQuantity), product.stock);
-
-    if (newQuantity === 0) {
-        delete cart[index];
-    } else {
-        cart[index] = newQuantity;
-    }
-
-    // Update main product grid
-    if (quantitySpan) {
-        quantitySpan.textContent = newQuantity;
-    }
-
-    // Update cart modal if it's open
-    if (modalQuantitySpan) {
-        modalQuantitySpan.textContent = newQuantity;
-        const itemTotal = product.price * newQuantity;
-        const modalTotalSpan = document.getElementById(`modal-total-${index}`);
-        if (modalTotalSpan) {
-            modalTotalSpan.textContent = `AED ${itemTotal.toFixed(2)}`;
-        }
-
-        // Recalculate and update grand total
-        let grandTotal = 0;
-        for (const [idx, qty] of Object.entries(cart)) {
-            grandTotal += products[idx].price * qty;
-        }
-        const modalGrandTotal = document.getElementById('modal-grand-total');
-        if (modalGrandTotal) {
-            modalGrandTotal.textContent = `AED ${grandTotal.toFixed(2)}`;
-        }
-    }
-
-    updateCartButton();
-}
-
-        function updateCartButton() {
-            const cartButton = document.getElementById('cartButton');
-            const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
-            const totalPrice = Object.entries(cart).reduce((total, [index, quantity]) => {
-                return total + (products[index].price * quantity);
-            }, 0);
-
-            if (totalItems > 0) {
-                cartButton.style.display = 'block';
-                cartButton.textContent = `Proceed to Cart (${totalItems} items, AED ${totalPrice.toFixed(2)})`;
-            } else {
-                cartButton.style.display = 'none';
+                console.log('Showing tracking result');
+                trackingResult.classList.remove('hide-section');
             }
-        }
 
-        function clearCart() {
-    cart = {};
-    // Update quantity displays in product cards
-    products.forEach((product, index) => {
-        const quantitySpan = document.getElementById(`quantity-${index}`);
-        if (quantitySpan) {
-            quantitySpan.textContent = '0';
-        }
-    });
-    updateCartButton();
-
-    // Hide the cart modal
-    const cartModal = bootstrap.Modal.getInstance(document.getElementById('cartModal'));
-    if (cartModal) {
-        cartModal.hide();
-    }
-}
-
-
-function showCartModal() {
-    const modalBody = document.getElementById('cartModalBody');
-    let cartContent = '<ul class="list-group">';
-    let total = 0;
-
-    for (const [index, quantity] of Object.entries(cart)) {
-        const product = products[index];
-        const itemTotal = product.price * quantity;
-        total += itemTotal;
-        cartContent += 
-            `<li class="list-group-item d-flex justify-content-between align-items-center">
-                <div>
-                    <button class="btn btn-sm btn-outline-secondary me-2" onclick="changeQuantity(${index}, -1)">-</button>
-                    <span id="modal-quantity-${index}">${quantity}</span>
-                    <button class="btn btn-sm btn-outline-secondary ms-2" onclick="changeQuantity(${index}, 1)">+</button>
-                    ${product.code}  
-                    <span class="text-primary">AED ${product.price.toFixed(2)} ${product.kg && product.kg !== 1 ? `/Kg` : ''}</span>
-                </div>
-                <span id="modal-total-${index}">AED ${itemTotal.toFixed(2)}</span>
-            </li>`;
-    }
-
-    cartContent += 
-        `<li class="list-group-item d-flex justify-content-between align-items-center fw-bold">
-            Total
-            <span id="modal-grand-total">AED ${total.toFixed(2)}</span>
-        </li>
-    </ul>`;
-
-    modalBody.innerHTML = cartContent;
-
-    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
-    cartModal.show();
-}
-
-        function searchProducts() {
-    const searchInput = document.getElementById('searchInput').value.toLowerCase();
-    const productCards = document.querySelectorAll('.product-card');
-
-    productCards.forEach((card, index) => {
-        const productName = products[index].code.toLowerCase();
-        if (productName.includes(searchInput)) {
-            card.parentElement.style.display = '';
-        } else {
-            card.parentElement.style.display = 'none';
-        }
-    });
-}
-
-        document.getElementById('cartButton').onclick = function () {
-            if (Object.keys(cart).length > 0) {
-                showCartModal();
-            } else {
-                alert('Your cart is empty!');
+            function showError(message) {
+                console.log('Error:', message);
+                errorMessage.textContent = message;
+                errorMessage.classList.remove('hide-section');
             }
-        };
-
-        document.getElementById('proceedToWhatsApp').onclick = function () {
-        const address = document.getElementById('addressInput').value.trim();
-        
-        let message = "I'd like to order the following items:\n\n";
-        let total = 0;
-        for (const [index, quantity] of Object.entries(cart)) {
-            const product = products[index];
-            const itemTotal = product.price * quantity;
-            total += itemTotal;
-            message += `${quantity}x ${product.code} - AED ${product.price.toFixed(2)} each = AED ${itemTotal.toFixed(2)}\n`;
-        }
-        message += `\nTotal: AED ${total.toFixed(2)}`;
-        
-        // Only add address to message if one was provided
-        if (address) {
-            message += `\n\nDelivery Address:\n${address}`;
-        }
-        
-        message += "\n\nPlease confirm my order. Thank you!";
-
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappLink = `https://wa.me/${Phone}?text=${encodedMessage}`;
-
-        window.open(whatsappLink, '_blank');
-
-        clearCart();
-    };
-
-        gapi.load('client', initClient);
-		document.getElementById('searchInput').oninput = debounce(filterProducts, 300);
+        });
     </script>
 </body>
 </html>
